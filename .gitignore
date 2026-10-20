@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # Operating system
 .DS_Store
+
+# Local-only development notes
+/docs/
