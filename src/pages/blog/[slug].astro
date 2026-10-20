@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+// Astro generates one static URL for every published article in the collection.
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { data } = post;
+---
+<ArticleLayout
+  title={data.title}
+  description={data.description}
+  publishDate={data.publishDate}
+  updatedDate={data.updatedDate}
+  tags={data.tags}
+  heroImage={data.heroImage?.src}
+  heroImageAlt={data.title}
+>
+  <Content />
+</ArticleLayout>

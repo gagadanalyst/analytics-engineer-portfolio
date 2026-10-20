@@ -1,0 +1,163 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectThumbnail from '../components/ProjectThumbnail.astro';
+import dashboardPreview from '../content/projects/images/toronto-dashboard-preview.png';
+import dashboardPreviewDark from '../content/projects/images/toronto-dashboard-preview-dark.png';
+import dbtDocsPreview from '../content/projects/images/toronto-dbt-docs-preview.png';
+import dbtDocsPreviewDark from '../content/projects/images/toronto-dbt-docs-preview-dark.png';
+import sourceCodePreview from '../content/projects/images/toronto-source-code-preview.png';
+import sourceCodePreviewDark from '../content/projects/images/toronto-source-code-preview-dark.png';
+
+// Query the project collection rather than repeating the same details by hand.
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+const flagship = projects.find((project) => project.data.status === 'flagship');
+
+if (!flagship) {
+  throw new Error('The projects collection needs one project with status: flagship.');
+}
+
+if (!flagship.data.repositoryUrl || !flagship.data.dbtDocsUrl || !flagship.data.dashboardUrl) {
+  throw new Error('The flagship project needs repositoryUrl, dbtDocsUrl and dashboardUrl links.');
+}
+
+const supportingProjects = projects.filter(
+  (project) => project.data.showOnHome && project.data.status === 'supporting',
+);
+const recentPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 4);
+const shortDate = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+const evidenceLinks = [
+  {
+    label: 'Source code',
+    description: 'Ingestion, models, tests and project decisions',
+    href: flagship.data.repositoryUrl,
+    thumbnail: sourceCodePreview,
+    darkThumbnail: sourceCodePreviewDark,
+    thumbnailAlt: 'Illustrative preview of the public GitHub repository and its source tree. This is not a screenshot.',
+  },
+  {
+    label: 'dbt documentation',
+    description: 'Models, descriptions and lineage',
+    href: flagship.data.dbtDocsUrl,
+    thumbnail: dbtDocsPreview,
+    darkThumbnail: dbtDocsPreviewDark,
+    thumbnailAlt: 'Illustrative diagram of the published dbt documentation structure. This is not a screenshot.',
+  },
+  {
+    label: 'Live dashboard',
+    description: 'Explore the published analytical views',
+    href: flagship.data.dashboardUrl,
+    thumbnail: dashboardPreview,
+    darkThumbnail: dashboardPreviewDark,
+    thumbnailAlt: 'Illustrative overview of active permit aging, cleared lifecycle and source data quality. This is not a screenshot.',
+  },
+];
+---
+<BaseLayout
+  title="Gagandeep Singh | Analytics Engineer"
+  description="I connect data ingestion, quality controls, analytical modeling and delivery to build reliable, testable data products."
+>
+  <section class="hero container" aria-labelledby="hero-title">
+    <h1 id="hero-title">I turn fragmented source data into <span>reliable, tested datasets and useful analytics.</span></h1>
+    <p class="intro">
+      I connect data ingestion, transformation, quality controls and business-facing outputs—with an emphasis on reproducibility and making the work easy to inspect.
+    </p>
+    <a class="primary-link" href="#evidence">Review the evidence <span aria-hidden="true">↓</span></a>
+  </section>
+
+  <section class="evidence container" id="evidence" aria-labelledby="project-title">
+    <p class="section-label">Featured project</p>
+    <h2 id="project-title">{flagship.data.title}</h2>
+    <p class="project-summary">{flagship.data.description}</p>
+    <p class="project-scope">
+      The analysis is descriptive: observed history helps inspect source changes, but it does not prove exact real-world status-transition times or explain the causes of permit delays.
+    </p>
+
+    <div class="evidence-links" aria-label="Project evidence links">
+      {evidenceLinks.map((item) => (
+        <a class="evidence-link" href={item.href} target="_blank" rel="noreferrer">
+          {item.thumbnail && item.thumbnailAlt && (
+            <ProjectThumbnail src={item.thumbnail} darkSrc={item.darkThumbnail} alt={item.thumbnailAlt} loading="eager" />
+          )}
+          <span class="evidence-link-label">{item.label} <span aria-hidden="true">↗</span></span>
+          <span class="evidence-link-description">{item.description}</span>
+        </a>
+      ))}
+    </div>
+    <p class="next-step-note">
+      Each resource opens separately so you can inspect the implementation, model documentation or dashboard in its full interface.
+    </p>
+    <p class="case-study-note"><a href={`${import.meta.env.BASE_URL}projects/${flagship.id}/`}>Read the full case study →</a></p>
+  </section>
+
+  <section class="supporting-work container" aria-labelledby="supporting-title">
+    <div class="supporting-heading">
+      <div>
+        <p class="section-label">Supporting work</p>
+        <h2 id="supporting-title">More skills, different contexts.</h2>
+      </div>
+      <a class="all-projects-link" href={`${import.meta.env.BASE_URL}projects/`}>All projects ↗</a>
+    </div>
+    <div class="supporting-list">
+      {supportingProjects.map((project) => (
+        <article class:list={['supporting-row', { 'has-thumbnail': Boolean(project.data.thumbnail) }]}>
+          {project.data.thumbnail && project.data.thumbnailAlt && (
+            <a class="supporting-thumbnail-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`} aria-label={`Open ${project.data.title} case study`}>
+              <ProjectThumbnail src={project.data.thumbnail} darkSrc={project.data.thumbnailDark} alt={project.data.thumbnailAlt} />
+            </a>
+          )}
+          <div class="supporting-content">
+            <h3><a href={`${import.meta.env.BASE_URL}projects/${project.id}/`}>{project.data.title}</a></h3>
+            <p>{project.data.description}</p>
+            <ul aria-label={`Technologies used for ${project.data.title}`}>
+              {project.data.technologies.slice(0, 5).map((technology) => <li>{technology}</li>)}
+            </ul>
+          </div>
+          <a class="review-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`}>Review the evidence →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="writing container" id="writing" aria-labelledby="writing-title">
+    <p class="section-label">Technical writing</p>
+    <h2 id="writing-title">Clear explanations, not just code.</h2>
+    <p class="writing-copy">
+      I write practical notes on data platforms, cloud services and engineering fundamentals—focusing on clear explanations and hands-on context.
+    </p>
+    {recentPosts.length > 0 && (
+      <ul class="writing-list" aria-label="Recent articles">
+        {recentPosts.map((post) => (
+          <li>
+            <a href={`${import.meta.env.BASE_URL}blog/${post.id}/`}>{post.data.title}</a>
+            <time datetime={post.data.publishDate.toISOString()}>{shortDate.format(post.data.publishDate)}</time>
+          </li>
+        ))}
+      </ul>
+    )}
+    <p class="writing-more"><a href={`${import.meta.env.BASE_URL}blog/`}>All technical writing →</a></p>
+  </section>
+</BaseLayout>
+
+
+<style>
+  .writing-list { list-style: none; padding: 0; margin: 28px 0 0; border-top: 1px solid var(--line); max-width: 850px; }
+  .writing-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .writing-list a { font-weight: 650; text-decoration: none; }
+  .writing-list a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+  .writing-list time { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+  .writing-more { margin-top: 20px; font-weight: 700; }
+  .writing-more a { color: var(--ink); text-decoration: none; }
+  .writing-more a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 560px) { .writing-list li { align-items: flex-start; flex-direction: column; gap: 3px; } }
+</style>

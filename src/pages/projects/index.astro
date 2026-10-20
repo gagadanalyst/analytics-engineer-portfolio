@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectThumbnail from '../../components/ProjectThumbnail.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+---
+<BaseLayout title="Projects" description="Selected projects and notebooks demonstrating Analytics Engineering, data analysis and modeling. ">
+  <section class="container project-index">
+    <a class="back-link" href={`${import.meta.env.BASE_URL}#evidence`}>← Back to portfolio</a>
+    <p class="eyebrow">Project archive</p>
+    <h1>Selected work</h1>
+    <p class="intro">Projects are included for the skills they demonstrate. Each entry distinguishes implemented work from limitations and planned improvements.</p>
+
+    <div class="project-list">
+      {projects.map((project) => (
+        <article class:list={['project-row', { 'has-thumbnail': Boolean(project.data.thumbnail) }]}>
+          {project.data.thumbnail && project.data.thumbnailAlt && (
+            <a class="project-thumbnail-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`} aria-label={`Open ${project.data.title} case study`}>
+              <ProjectThumbnail src={project.data.thumbnail} darkSrc={project.data.thumbnailDark} alt={project.data.thumbnailAlt} />
+            </a>
+          )}
+          <div class="project-row-content">
+            <p class="project-status">{project.data.status === 'flagship' ? 'Flagship' : project.data.status === 'supporting' ? 'Supporting work' : 'Lower priority'}</p>
+            <h2><a href={`${import.meta.env.BASE_URL}projects/${project.id}/`}>{project.data.title}</a></h2>
+            <p>{project.data.description}</p>
+            <ul class="technology-list">
+              {project.data.technologies.map((technology) => <li>{technology}</li>)}
+            </ul>
+          </div>
+          <a class="review-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`}>Review the evidence →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .project-index { padding-top: 44px; padding-bottom: 88px; }
+  .back-link { display: inline-block; color: var(--ink); text-decoration: none; text-decoration-color: var(--accent); margin-bottom: 30px; font-weight: 650; }
+  .eyebrow, .project-status { color: var(--ink); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+  h1 { font-size: clamp(1.8rem, 3.2vw, 2.55rem); line-height: 1.12; letter-spacing: -0.05em; margin: 0 0 18px; }
+  .intro { color: var(--muted); max-width: 650px; margin-bottom: 40px; }
+  .project-list { border-top: 1px solid var(--line); }
+  .project-row { display: flex; justify-content: space-between; align-items: start; gap: 30px; padding: 27px 0; border-bottom: 1px solid var(--line); }
+  .project-row.has-thumbnail { display: grid; grid-template-columns: minmax(160px, 210px) minmax(0, 1fr) auto; align-items: start; gap: 22px; }
+  .project-thumbnail-link { display: block; width: 100%; }
+  .project-row-content { min-width: 0; }
+  .project-thumbnail-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .project-row h2 { font-size: 1.28rem; margin: 0 0 8px; letter-spacing: -0.035em; }
+  .project-row h2 a { text-decoration: none; }
+  .project-row h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .project-row p:not(.project-status) { color: var(--muted); max-width: 650px; margin-bottom: 14px; }
+  .project-status { margin: 0 0 8px; font-size: 0.68rem; }
+  .technology-list { display: flex; flex-wrap: wrap; gap: 7px; list-style: none; padding: 0; margin: 0; }
+  .technology-list li { border: 1px solid var(--line); padding: 3px 7px; color: var(--muted); font-size: 0.75rem; border-radius: 4px; }
+  .review-link { color: var(--ink); white-space: nowrap; font-size: 0.88rem; font-weight: 650; text-decoration: none; margin-top: 25px; }
+  .review-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 760px) { .project-row.has-thumbnail { grid-template-columns: 150px minmax(0, 1fr); } .project-row.has-thumbnail .review-link { grid-column: 2; margin-top: 0; } }
+  @media (max-width: 640px) { .project-row, .project-row.has-thumbnail { display: flex; flex-direction: column; gap: 12px; } .review-link { margin-top: 0; } .project-thumbnail-link { max-width: 420px; } }
+</style>

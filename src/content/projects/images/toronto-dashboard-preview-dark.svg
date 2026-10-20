@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#343440"/>
+    <stop offset="100%" stop-color="#343440"/>
+  </linearGradient>
+  <filter id="shadow" x="-15%" y="-20%" width="130%" height="145%">
+    <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#25252F" flood-opacity="0.08"/>
+  </filter>
+</defs>
+<rect width="960" height="540" rx="0" fill="url(#bg)"/>
+<path d="M0 444 C160 420 285 474 460 447 S770 418 960 455 L960 540 L0 540 Z" fill="#82B5AA" opacity="0.14"/>
+<rect x="44" y="42" width="6" height="50" rx="3" fill="#82B5AA"/>
+<text x="68" y="58" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="2.4" font-weight="700" fill="#E3E0ED">LIVE DASHBOARD</text>
+<text x="68" y="98" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-1" fill="#E3E0ED">Explore the permit analysis</text>
+<text x="68" y="129" font-family="Inter, Arial, sans-serif" font-size="15" fill="#E3E0ED" opacity="0.76">Inspect aging, lifecycle outcomes and data-quality views.</text>
+<rect x="725" y="48" width="190" height="31" rx="15.5" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
+<text x="820" y="68" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" letter-spacing="1.3" font-weight="700" fill="#E3E0ED" opacity="0.76">OPENS STREAMLIT</text>
+
+<g>
+  <rect x="44" y="170" width="872" height="260" rx="14" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18" filter="url(#shadow)"/>
+  <rect x="44" y="170" width="872" height="42" rx="14" fill="#82B5AA"/>
+  <rect x="44" y="198" width="872" height="14" fill="#82B5AA"/>
+  <text x="68" y="197" font-family="Inter, Arial, sans-serif" font-size="12" letter-spacing="1.3" font-weight="700" fill="#25252F" >PERMIT ANALYTICS · INTERACTIVE DASHBOARD</text>
+  <rect x="68" y="232" width="245" height="71" rx="9" fill="#82B5AA" fill-opacity="0.18" stroke="#E3E0ED" stroke-opacity="0.18"/>
+  <text x="85" y="255" font-family="Inter, Arial, sans-serif" font-size="11" fill="#E3E0ED" opacity="0.76">ACTIVE PERMIT AGING</text>
+  <path d="M86 285 L117 278 L148 281 L179 261 L210 269 L242 247 L284 252" fill="none" stroke="#82B5AA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="330" y="232" width="245" height="71" rx="9" fill="#82B5AA" fill-opacity="0.18" stroke="#E3E0ED" stroke-opacity="0.18"/>
+  <text x="347" y="255" font-family="Inter, Arial, sans-serif" font-size="11" fill="#E3E0ED" opacity="0.76">CLEARED LIFECYCLE</text>
+  <g fill="#82B5AA"><rect x="350" y="276" width="28" height="15" rx="3"/><rect x="390" y="266" width="28" height="25" rx="3"/><rect x="430" y="257" width="28" height="34" rx="3"/><rect x="470" y="270" width="28" height="21" rx="3"/><rect x="510" y="246" width="28" height="45" rx="3"/></g>
+  <rect x="592" y="232" width="300" height="71" rx="9" fill="#82B5AA" fill-opacity="0.18" stroke="#E3E0ED" stroke-opacity="0.18"/>
+  <text x="609" y="255" font-family="Inter, Arial, sans-serif" font-size="11" fill="#E3E0ED" opacity="0.76">SOURCE DATA QUALITY</text>
+  <g fill="#82B5AA"><rect x="610" y="269" width="238" height="7" rx="3.5"/><rect x="610" y="284" width="169" height="7" rx="3.5" opacity=".55"/></g>
+  <text x="480" y="348" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="13" fill="#E3E0ED" opacity="0.76">Illustrative preview · Not a captured dashboard screenshot</text>
+  <text x="480" y="378" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#E3E0ED">Click to open the live dashboard ↗</text>
+</g>
+
+</svg>

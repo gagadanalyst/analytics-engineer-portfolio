@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// One query drives the writing archive; a new Markdown file appears automatically.
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+const dateFormat = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+<BaseLayout
+  title="Technical Writing"
+  description="Technical articles and practical walkthroughs on data platforms, AWS and data engineering."
+>
+  <section class="writing-page container" aria-labelledby="writing-title">
+    <a class="back-link" href={`${import.meta.env.BASE_URL}#writing`}>← Back to portfolio</a>
+    <p class="eyebrow">Technical writing</p>
+    <h1 id="writing-title">Learn it. Test it. Explain it.</h1>
+    <p class="intro">
+      Practical articles and walkthroughs on data platforms, cloud services and engineering fundamentals.
+    </p>
+
+    {posts.length > 0 ? (
+      <div class="article-list">
+        {posts.map((post) => (
+          <article class="article-row">
+            <p class="article-meta">
+              <time datetime={post.data.publishDate.toISOString()}>{dateFormat.format(post.data.publishDate)}</time>
+              {post.data.tags.length > 0 && <span> · {post.data.tags.slice(0, 3).join(' · ')}</span>}
+            </p>
+            <h2><a href={`${import.meta.env.BASE_URL}blog/${post.id}/`}>{post.data.title}</a></h2>
+            <p class="article-description">{post.data.description}</p>
+            <a class="read-link" href={`${import.meta.env.BASE_URL}blog/${post.id}/`}>Read article →</a>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p>The reading layout is ready. The four existing articles can be copied from the original public repository with the migration script.</p>
+        <code>npm run import:legacy</code>
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .writing-page { padding-top: 44px; padding-bottom: 88px; }
+  .back-link { display: inline-block; margin-bottom: 30px; color: var(--ink); text-decoration: none; text-decoration-color: var(--accent); font-weight: 650; }
+  .back-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .eyebrow { color: var(--ink); font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin: 0 0 16px; }
+  h1 { max-width: 800px; font-size: clamp(2.1rem, 4.5vw, 3.4rem); line-height: 1.05; letter-spacing: -.06em; margin: 0 0 18px; }
+  .intro { max-width: 670px; color: var(--muted); font-size: 1.08rem; line-height: 1.8; margin-bottom: 44px; }
+  .article-list { border-top: 1px solid var(--line); }
+  .article-row { padding: 27px 0 30px; border-bottom: 1px solid var(--line); }
+  .article-meta { color: var(--muted); font-size: .79rem; margin-bottom: 10px; }
+  .article-row h2 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); line-height: 1.25; letter-spacing: -.035em; margin: 0 0 10px; }
+  .article-row h2 a { text-decoration: none; }
+  .article-row h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .article-description { color: var(--muted); max-width: 720px; margin-bottom: 12px; }
+  .read-link { color: var(--ink); font-weight: 700; text-decoration: none; font-size: .9rem; }
+  .read-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .empty-state { border: 1px dashed var(--line); padding: 22px; color: var(--muted); border-radius: 8px; }
+  .empty-state code { color: var(--ink); }
+</style>

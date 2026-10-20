@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Page not found"
+  description="This page could not be found. Return to the portfolio or browse the project and writing archives."
+>
+  <section class="not-found container" aria-labelledby="not-found-title">
+    <p class="eyebrow">404 · Page not found</p>
+    <h1 id="not-found-title">This page isn't here.</h1>
+    <p class="not-found-copy">
+      The link may be outdated, or the page may have moved. The portfolio's projects and technical writing are still available from their archives.
+    </p>
+    <nav class="not-found-links" aria-label="Where to go next">
+      <a class="primary-link" href={import.meta.env.BASE_URL}>Return to the portfolio <span aria-hidden="true">→</span></a>
+      <a href={`${import.meta.env.BASE_URL}projects/`}>Browse projects</a>
+      <a href={`${import.meta.env.BASE_URL}blog/`}>Browse technical writing</a>
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { min-height: 60vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding-top: 72px; padding-bottom: 88px; }
+  .eyebrow { color: var(--ink); font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin: 0 0 18px; }
+  h1 { max-width: 760px; font-size: clamp(2.2rem, 4.7vw, 3.6rem); font-weight: 650; letter-spacing: -.065em; line-height: 1.04; margin: 0 0 22px; }
+  .not-found-copy { max-width: 610px; color: var(--muted); font-size: 1.08rem; line-height: 1.8; margin-bottom: 28px; }
+  .not-found-links { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; }
+  .not-found-links a:not(.primary-link) { font-size: .9rem; font-weight: 650; text-underline-offset: 4px; }
+  .not-found-links a:not(.primary-link):hover { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  @media (max-width: 560px) { .not-found { min-height: 55vh; } .not-found-links { align-items: flex-start; flex-direction: column; gap: 15px; } }
+</style>

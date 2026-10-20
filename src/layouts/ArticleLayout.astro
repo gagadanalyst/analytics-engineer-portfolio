@@ -1,0 +1,99 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  heroImage?: string;
+  heroImageAlt?: string;
+}
+
+const {
+  title,
+  description,
+  publishDate,
+  updatedDate,
+  tags = [],
+  heroImage,
+  heroImageAlt = title,
+} = Astro.props;
+
+const longDate = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+<BaseLayout title={title} description={description}>
+  <article class="article-page container">
+    <a class="back-link" href={`${import.meta.env.BASE_URL}blog/`}>← All articles</a>
+
+    <header class="article-header">
+      <p class="eyebrow">Technical writing</p>
+      <h1>{title}</h1>
+      <p class="article-description">{description}</p>
+      <p class="article-dates">
+        <time datetime={publishDate.toISOString()}>{longDate.format(publishDate)}</time>
+        {updatedDate && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span>Updated <time datetime={updatedDate.toISOString()}>{longDate.format(updatedDate)}</time></span>
+          </>
+        )}
+      </p>
+      {tags.length > 0 && (
+        <ul class="tag-list" aria-label="Article topics">
+          {tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+      {heroImage && <img class="article-hero-image" src={heroImage} alt={heroImageAlt} fetchpriority="high" />}
+    </header>
+
+    <div class="article-prose">
+      <slot />
+    </div>
+
+    <footer class="article-end">
+      <a href={`${import.meta.env.BASE_URL}blog/`}>← More technical writing</a>
+      <a href={`${import.meta.env.BASE_URL}#evidence`}>Review the project evidence →</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-page { width: min(780px, calc(100% - 40px)); padding-top: 36px; padding-bottom: 88px; }
+  .back-link { display: inline-block; color: var(--ink); text-decoration: none; text-decoration-color: var(--accent); font-weight: 650; margin-bottom: 30px; }
+  .back-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .article-header { margin-bottom: 42px; }
+  .eyebrow { color: var(--ink); font-size: .78rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; margin: 0 0 16px; }
+  h1 { font-size: clamp(2rem, 4.4vw, 3.25rem); font-weight: 650; letter-spacing: -.06em; line-height: 1.08; margin: 0 0 20px; }
+  .article-description { color: var(--muted); font-size: 1.15rem; line-height: 1.8; margin-bottom: 17px; }
+  .article-dates { color: var(--muted); font-size: .82rem; margin-bottom: 16px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 7px; list-style: none; padding: 0; margin: 0 0 24px; }
+  .tag-list li { border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; color: var(--muted); font-size: .73rem; }
+  .article-hero-image { display: block; width: auto; max-width: 100%; max-height: 380px; object-fit: contain; object-position: left center; margin-top: 28px; border-radius: 5px; }
+  .article-prose { font-size: 1.02rem; line-height: 1.9; overflow-wrap: anywhere; }
+  .article-prose :global(h2) { font-size: clamp(1.35rem, 2.5vw, 1.55rem); line-height: 1.25; letter-spacing: -.04em; margin: 2.35em 0 .65em; }
+  .article-prose :global(h3) { font-size: 1.25rem; line-height: 1.35; letter-spacing: -.025em; margin: 1.9em 0 .55em; }
+  .article-prose :global(h4), .article-prose :global(h5) { margin-top: 1.7em; }
+  .article-prose :global(p), .article-prose :global(li) { color: var(--muted); }
+  .article-prose :global(a) { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .article-prose :global(img) { display: block; max-width: 100%; height: auto; margin: 1.8rem auto; }
+  .article-prose :global(figure) { margin: 2rem 0; }
+  .article-prose :global(figcaption) { color: var(--muted); font-size: .8rem; text-align: center; margin-top: .5rem; }
+  .article-prose :global(table) { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: .88rem; }
+  .article-prose :global(th), .article-prose :global(td) { border: 1px solid var(--line); padding: .55rem .7rem; text-align: left; }
+  .article-prose :global(th) { background: var(--paper); color: var(--ink); }
+  .article-prose :global(blockquote) { border-left: 3px solid var(--accent); margin: 1.6rem 0; padding: .2rem 0 .2rem 1rem; color: var(--muted); }
+  .article-prose :global(pre) { max-width: 100%; overflow: auto; padding: 1rem; border: 1px solid var(--line); border-radius: 7px; background: var(--paper); font-size: .82rem; line-height: 1.65; }
+  .article-prose :global(code) { font-size: .88em; overflow-wrap: anywhere; }
+  .article-prose :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+  .article-end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); margin-top: 52px; padding-top: 22px; font-size: .87rem; font-weight: 700; }
+  .article-end a { color: var(--ink); text-decoration: none; }
+  .article-end a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 680px) { .article-page { width: min(100% - 32px, 780px); } .article-description { font-size: 1.03rem; } .article-prose { font-size: .98rem; } }
+</style>

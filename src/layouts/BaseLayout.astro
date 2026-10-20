@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+
+// Props let each page supply its own title and description while sharing the same HTML shell.
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Gagandeep Singh | Analytics Engineer',
+  description = 'Analytics Engineering portfolio: reliable, testable data products from ingestion to analytics.',
+} = Astro.props;
+
+const pageTitle = title.includes('Gagandeep Singh')
+  ? title
+  : `${title} | Gagandeep Singh`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("portfolio-theme");
+          if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+        } catch { /* Keep the default light theme when storage is unavailable. */ }
+      })();
+    </script>
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="site-name" href={import.meta.env.BASE_URL} aria-label="Gagandeep Singh home">
+          Gagandeep Singh
+          <span>Analytics Engineer · Toronto</span>
+        </a>
+        <div class="header-controls">
+          <nav aria-label="Main navigation">
+            <a href={`${import.meta.env.BASE_URL}#evidence`}>Work</a>
+            <a href={`${import.meta.env.BASE_URL}#writing`}>Writing</a>
+            <a href="https://github.com/gagadanalyst" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </nav>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+            <span class="theme-icon" id="theme-icon" aria-hidden="true">◐</span>
+            <span class="theme-label" id="theme-label">Dark</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© {new Date().getFullYear()} Gagandeep Singh</span>
+        <a href="https://github.com/gagadanalyst" target="_blank" rel="noreferrer">GitHub profile ↗</a>
+      </div>
+    </footer>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const button = document.getElementById("theme-toggle");
+        const label = document.getElementById("theme-label");
+        const icon = document.getElementById("theme-icon");
+        if (!button || !label || !icon) return;
+        const syncControl = () => {
+          const isDark = root.dataset.theme === "dark";
+          label.textContent = isDark ? "Light" : "Dark";
+          icon.textContent = isDark ? "☼" : "◐";
+          button.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+          button.setAttribute("aria-pressed", String(isDark));
+        };
+        button.addEventListener("click", () => {
+          const next = root.dataset.theme === "dark" ? "light" : "dark";
+          root.dataset.theme = next;
+          try { localStorage.setItem("portfolio-theme", next); } catch { /* Theme still works for this page view. */ }
+          syncControl();
+        });
+        syncControl();
+      })();
+    </script>
+  </body>
+</html>
