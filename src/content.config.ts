@@ -12,7 +12,6 @@ const projects = defineCollection({
     status: z.enum(['flagship', 'supporting', 'backlog']),
     technologies: z.array(z.string()).default([]),
     thumbnail: image().optional(),
-    thumbnailDark: image().optional(),
     thumbnailAlt: z.string().optional(),
     showOnHome: z.boolean().default(false),
     sortOrder: z.number().int().default(100),
