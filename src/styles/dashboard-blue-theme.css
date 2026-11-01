@@ -11,6 +11,7 @@
   --accent: #21B6E8;
   --accent-ink: #28343E;
   --link: #106F91;
+  --button-ink: #FFFFFF;
   --muted: #566875;
   --line: #DCE3E9;
   --accent-soft: #BFE8F4;
@@ -24,6 +25,7 @@ html[data-theme="dark"] {
   --accent: #5CE1E6;
   --accent-ink: #0B1220;
   --link: #7CA8DF;
+  --button-ink: #0B1220;
   --muted: #ADBBCE;
   --line: #33445A;
   --accent-soft: #294758;
@@ -54,8 +56,7 @@ a:hover {
   color: var(--link);
 }
 
-.site-name:hover,
-.primary-link:hover {
+.site-name:hover {
   color: var(--accent-ink);
 }
 
@@ -67,10 +68,24 @@ a:hover {
   border-color: var(--accent);
 }
 
-.theme-toggle:hover,
-.primary-link {
+.theme-toggle:hover {
   background-color: var(--accent);
   color: var(--accent-ink);
+}
+
+/* The primary call to action uses the same blue as ordinary link text. */
+.primary-link,
+.primary-link:visited {
+  background-color: var(--link);
+  border-color: var(--link);
+  color: var(--button-ink);
+}
+
+.primary-link:hover {
+  background-color: var(--link);
+  border-color: var(--link);
+  color: var(--button-ink);
+  filter: brightness(0.94);
 }
 
 .theme-toggle:focus-visible,
