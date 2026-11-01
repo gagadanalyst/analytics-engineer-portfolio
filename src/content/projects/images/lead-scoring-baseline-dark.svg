@@ -10,7 +10,7 @@
   </filter>
 </defs>
 <rect width="960" height="540" rx="0" fill="url(#bg)"/>
-<path d="M0 444 C160 420 285 474 460 447 S770 418 960 455 L960 540 L0 540 Z" fill="#5CE1E6" opacity="0.14"/>
+<path d="M0 444 C160 420 285 474 460 447 S770 418 960 455 L960 540 L0 540 Z" fill="#5CE1E6" opacity="0.12"/>
 <rect x="44" y="42" width="6" height="50" rx="3" fill="#5CE1E6"/>
 <text x="68" y="58" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="2.4" font-weight="700" fill="#E8EEF7">LEAD CONVERSION</text>
 <text x="68" y="98" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-1" fill="#E8EEF7">Explore, prepare, explain</text>
@@ -31,7 +31,7 @@
 </g>
 <path d="M308 222 H348 M341 215 L348 222 L341 229" fill="none" stroke="#5CE1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M605 222 H645 M638 215 L645 222 L638 229" fill="none" stroke="#5CE1E6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="58" y="300" width="844" height="77" rx="12" fill="#5CE1E6" fill-opacity="0.18" stroke="#E8EEF7" stroke-opacity="0.18"/>
+<rect x="58" y="300" width="844" height="77" rx="12" fill="#23344B" stroke="#33445A" stroke-opacity="0.14"/>
 <text x="82" y="329" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="1" fill="#E8EEF7">LEARNING FOCUS</text>
 <text x="82" y="354" font-family="Inter, Arial, sans-serif" font-size="14" fill="#E8EEF7" opacity="0.76">Exploratory analysis, feature preparation and model interpretability—not production readiness.</text>
 
