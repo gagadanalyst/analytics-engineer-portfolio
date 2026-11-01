@@ -1,0 +1,90 @@
+/*
+ * Portfolio colour tokens aligned with the Toronto Housing Streamlit dashboard.
+ * Light mode uses the dashboard's live .streamlit/config.toml palette.
+ * Dark mode adapts the dashboard's documented dark palette in dashboard/app.py.
+ */
+:root {
+  color-scheme: light;
+  --paper: #E2E7ED;
+  --surface: #E9EEF3;
+  --ink: #28343E;
+  --accent: #21B6E8;
+  --accent-ink: #28343E;
+  --link: #106F91;
+  --muted: #566875;
+  --line: #DCE3E9;
+  --accent-soft: #BFE8F4;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0B1220;
+  --surface: #192538;
+  --ink: #E8EEF7;
+  --accent: #5CE1E6;
+  --accent-ink: #0B1220;
+  --link: #7CA8DF;
+  --muted: #ADBBCE;
+  --line: #33445A;
+  --accent-soft: #294758;
+}
+
+/* Keep shared surfaces distinct from the blue-grey page canvas. */
+body,
+.site-header,
+.site-footer {
+  background-color: var(--paper);
+}
+
+.site-header,
+.site-footer {
+  background-color: var(--surface);
+}
+
+.site-name {
+  color: var(--ink);
+}
+
+/* Use an accessible blue for ordinary links; bright cyan remains the accent. */
+a {
+  color: var(--link);
+}
+
+a:hover {
+  color: var(--link);
+}
+
+.site-name:hover,
+.primary-link:hover {
+  color: var(--accent-ink);
+}
+
+.evidence-link {
+  background-color: var(--surface);
+}
+
+.theme-toggle {
+  border-color: var(--accent);
+}
+
+.theme-toggle:hover,
+.primary-link {
+  background-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.theme-toggle:focus-visible,
+.primary-link:focus-visible {
+  outline-color: var(--accent);
+}
+
+.article-prose pre,
+.article-prose th,
+.empty-state {
+  background-color: var(--surface);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}

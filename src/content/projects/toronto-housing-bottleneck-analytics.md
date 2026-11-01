@@ -4,7 +4,7 @@ description: An end-to-end Analytics Engineering project using City of Toronto b
 status: flagship
 thumbnail: ./images/toronto-pipeline.png
 thumbnailDark: ./images/toronto-pipeline-dark.png
-thumbnailAlt: "A four-stage architecture diagram showing Toronto Open Data, observed SCD Type 2 history, DuckDB and dbt models, and published documentation and dashboard outputs."
+thumbnailAlt: "Four-stage architecture showing Toronto Open Data ingestion, observed SCD Type 2 history, DuckDB and Snowflake as warehouse targets for a shared dbt analytics layer, and published dbt documentation and Streamlit dashboard outputs."
 technologies:
   - Python
   - dlt
