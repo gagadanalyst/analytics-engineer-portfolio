@@ -19,7 +19,7 @@ const projects = (await getCollection('projects')).sort(
         <article class:list={['project-row', { 'has-thumbnail': Boolean(project.data.thumbnail) }]}>
           {project.data.thumbnail && project.data.thumbnailAlt && (
             <a class="project-thumbnail-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`} aria-label={`Open ${project.data.title} case study`}>
-              <ProjectThumbnail src={project.data.thumbnail} darkSrc={project.data.thumbnailDark} alt={project.data.thumbnailAlt} />
+              <ProjectThumbnail src={project.data.thumbnail} alt={project.data.thumbnailAlt} />
             </a>
           )}
           <div class="project-row-content">

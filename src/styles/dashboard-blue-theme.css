@@ -1,7 +1,6 @@
 /*
  * Portfolio colour tokens aligned with the Toronto Housing Streamlit dashboard.
- * Light mode uses the dashboard's live .streamlit/config.toml palette.
- * Dark mode adapts the dashboard's documented dark palette in dashboard/app.py.
+ * Uses the dashboard's live .streamlit/config.toml light palette.
  */
 :root {
   color-scheme: light;
@@ -15,20 +14,6 @@
   --muted: #566875;
   --line: #DCE3E9;
   --accent-soft: #BFE8F4;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --paper: #0B1220;
-  --surface: #192538;
-  --ink: #E8EEF7;
-  --accent: #5CE1E6;
-  --accent-ink: #0B1220;
-  --link: #7CA8DF;
-  --button-ink: #0B1220;
-  --muted: #ADBBCE;
-  --line: #33445A;
-  --accent-soft: #294758;
 }
 
 /* Keep shared surfaces distinct from the blue-grey page canvas. */
@@ -64,15 +49,6 @@ a:hover {
   background-color: var(--surface);
 }
 
-.theme-toggle {
-  border-color: var(--accent);
-}
-
-.theme-toggle:hover {
-  background-color: var(--accent);
-  color: var(--accent-ink);
-}
-
 /* The primary call to action uses the same blue as ordinary link text. */
 .primary-link,
 .primary-link:visited {
@@ -88,7 +64,6 @@ a:hover {
   filter: brightness(0.94);
 }
 
-.theme-toggle:focus-visible,
 .primary-link:focus-visible {
   outline-color: var(--accent);
 }

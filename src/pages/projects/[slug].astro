@@ -34,7 +34,7 @@ const resources = [
       <h1>{data.title}</h1>
       <p class="project-description">{data.description}</p>
       {data.thumbnail && data.thumbnailAlt && (
-        <ProjectThumbnail src={data.thumbnail} darkSrc={data.thumbnailDark} alt={data.thumbnailAlt} loading="eager" className="case-study-thumbnail" />
+        <ProjectThumbnail src={data.thumbnail} alt={data.thumbnailAlt} loading="eager" className="case-study-thumbnail" />
       )}
       {data.technologies.length > 0 && (
         <ul class="technology-list" aria-label="Technologies used">
