@@ -3,7 +3,6 @@ title: "Lead Conversion: EDA and Interpretable Baseline"
 description: An exploratory analysis of a public lead-conversion dataset, using feature preparation and a shallow decision tree to inspect conversion patterns.
 status: supporting
 thumbnail: ./images/lead-scoring-baseline.png
-thumbnailDark: ./images/lead-scoring-baseline-dark.png
 thumbnailAlt: "A diagram summarizing the public lead-conversion exercise from exploratory analysis and feature preparation to an interpretable decision-tree baseline."
 technologies:
   - Python

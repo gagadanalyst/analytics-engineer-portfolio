@@ -3,11 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectThumbnail from '../components/ProjectThumbnail.astro';
 import dashboardPreview from '../content/projects/images/toronto-dashboard-preview.png';
-import dashboardPreviewDark from '../content/projects/images/toronto-dashboard-preview-dark.png';
 import dbtDocsPreview from '../content/projects/images/toronto-dbt-docs-preview.png';
-import dbtDocsPreviewDark from '../content/projects/images/toronto-dbt-docs-preview-dark.png';
 import sourceCodePreview from '../content/projects/images/toronto-source-code-preview.png';
-import sourceCodePreviewDark from '../content/projects/images/toronto-source-code-preview-dark.png';
 
 // Query the project collection rather than repeating the same details by hand.
 const projects = (await getCollection('projects')).sort(
@@ -42,7 +39,6 @@ const evidenceLinks = [
     description: 'Ingestion, models, tests and project decisions',
     href: flagship.data.repositoryUrl,
     thumbnail: sourceCodePreview,
-    darkThumbnail: sourceCodePreviewDark,
     thumbnailAlt: 'Illustrative preview of the public GitHub repository and its source tree. This is not a screenshot.',
   },
   {
@@ -50,7 +46,6 @@ const evidenceLinks = [
     description: 'Models, descriptions and lineage',
     href: flagship.data.dbtDocsUrl,
     thumbnail: dbtDocsPreview,
-    darkThumbnail: dbtDocsPreviewDark,
     thumbnailAlt: 'Illustrative diagram of the published dbt documentation structure. This is not a screenshot.',
   },
   {
@@ -58,7 +53,6 @@ const evidenceLinks = [
     description: 'Explore the published analytical views',
     href: flagship.data.dashboardUrl,
     thumbnail: dashboardPreview,
-    darkThumbnail: dashboardPreviewDark,
     thumbnailAlt: 'Illustrative overview of active permit aging, cleared lifecycle and source data quality. This is not a screenshot.',
   },
 ];
@@ -87,7 +81,7 @@ const evidenceLinks = [
       {evidenceLinks.map((item) => (
         <a class="evidence-link" href={item.href} target="_blank" rel="noreferrer">
           {item.thumbnail && item.thumbnailAlt && (
-            <ProjectThumbnail src={item.thumbnail} darkSrc={item.darkThumbnail} alt={item.thumbnailAlt} loading="eager" />
+            <ProjectThumbnail src={item.thumbnail} alt={item.thumbnailAlt} loading="eager" />
           )}
           <span class="evidence-link-label">{item.label} <span aria-hidden="true">↗</span></span>
           <span class="evidence-link-description">{item.description}</span>
@@ -113,7 +107,7 @@ const evidenceLinks = [
         <article class:list={['supporting-row', { 'has-thumbnail': Boolean(project.data.thumbnail) }]}>
           {project.data.thumbnail && project.data.thumbnailAlt && (
             <a class="supporting-thumbnail-link" href={`${import.meta.env.BASE_URL}projects/${project.id}/`} aria-label={`Open ${project.data.title} case study`}>
-              <ProjectThumbnail src={project.data.thumbnail} darkSrc={project.data.thumbnailDark} alt={project.data.thumbnailAlt} />
+              <ProjectThumbnail src={project.data.thumbnail} alt={project.data.thumbnailAlt} />
             </a>
           )}
           <div class="supporting-content">

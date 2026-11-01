@@ -3,7 +3,6 @@ title: European Energy Price Analytics
 description: A local prototype that connects day-ahead electricity-price collection, local storage, dbt transformations and Power BI reporting.
 status: supporting
 thumbnail: ./images/energy-price-workflow.png
-thumbnailDark: ./images/energy-price-workflow-dark.png
 thumbnailAlt: "A workflow diagram for the local energy-price prototype: EPEX Spot data collection, local storage, dbt transformations and Power BI reporting."
 technologies:
   - Python

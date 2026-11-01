@@ -3,7 +3,6 @@ title: Toronto Housing Bottleneck Analytics
 description: An end-to-end Analytics Engineering project using City of Toronto building-permit data, with one shared dbt project for DuckDB and Snowflake and a deployed Streamlit dashboard.
 status: flagship
 thumbnail: ./images/toronto-pipeline.png
-thumbnailDark: ./images/toronto-pipeline-dark.png
 thumbnailAlt: "Four-stage architecture showing Toronto Open Data ingestion, observed SCD Type 2 history, DuckDB and Snowflake as warehouse targets for a shared dbt analytics layer, and published dbt documentation and Streamlit dashboard outputs."
 technologies:
   - Python
