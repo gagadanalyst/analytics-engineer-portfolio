@@ -1,51 +1,117 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
-
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+<title id="title">Toronto Housing Bottleneck Analytics — architecture</title>
+<desc id="desc">Four-stage architecture: Toronto Open Data is ingested with Python and dlt into validated Parquet snapshots; successive extracts build observed SCD Type 2 history; the same dbt project models both DuckDB and Snowflake; and dbt documentation plus a Streamlit dashboard are published.</desc>
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#343440"/>
-    <stop offset="100%" stop-color="#343440"/>
-  </linearGradient>
-  <filter id="shadow" x="-15%" y="-20%" width="130%" height="145%">
-    <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#25252F" flood-opacity="0.08"/>
-  </filter>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0B1220"/><stop offset="100%" stop-color="#0B1220"/></linearGradient>
+  <filter id="shadow" x="-15%" y="-20%" width="130%" height="145%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#050A12" flood-opacity="0.10"/></filter>
+  <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#5CE1E6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
 </defs>
-<rect width="960" height="540" rx="0" fill="url(#bg)"/>
-<path d="M0 444 C160 420 285 474 460 447 S770 418 960 455 L960 540 L0 540 Z" fill="#82B5AA" opacity="0.14"/>
-<rect x="44" y="42" width="6" height="50" rx="3" fill="#82B5AA"/>
-<text x="68" y="58" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="2.4" font-weight="700" fill="#E3E0ED">TORONTO HOUSING BOTTLENECK ANALYTICS</text>
-<text x="68" y="98" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="-1" fill="#E3E0ED">From extracts to analytics</text>
-<text x="68" y="129" font-family="Inter, Arial, sans-serif" font-size="15" fill="#E3E0ED" opacity="0.76">An implemented workflow for reproducible, descriptive permit analytics.</text>
-<rect x="725" y="48" width="190" height="31" rx="15.5" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
-<text x="820" y="68" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" letter-spacing="1.3" font-weight="700" fill="#E3E0ED" opacity="0.76">ARCHITECTURE DIAGRAM</text>
-<g filter="url(#shadow)">
-  <rect x="42" y="205" width="190" height="142" rx="13" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
-  <circle cx="67" cy="234" r="13" fill="#82B5AA" fill-opacity="0.18"/>
-  <text x="67" y="239" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#E3E0ED">1</text>
-  <text x="59" y="275" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#E3E0ED">Toronto Open Data</text>
-  <text x="59" y="303" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">Active + Cleared permits</text>
-</g><path d="M232 277 H263" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round"/><path d="M256 270 L263 277 L256 284" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g filter="url(#shadow)">
-  <rect x="270" y="205" width="190" height="142" rx="13" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
-  <circle cx="295" cy="234" r="13" fill="#82B5AA" fill-opacity="0.18"/>
-  <text x="295" y="239" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#E3E0ED">2</text>
-  <text x="287" y="275" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#E3E0ED">Version history</text>
-  <text x="287" y="303" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">dlt · observed SCD2</text>
-</g><path d="M460 277 H491" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round"/><path d="M484 270 L491 277 L484 284" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g filter="url(#shadow)">
-  <rect x="498" y="205" width="190" height="142" rx="13" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
-  <circle cx="523" cy="234" r="13" fill="#82B5AA" fill-opacity="0.18"/>
-  <text x="523" y="239" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#E3E0ED">3</text>
-  <text x="515" y="275" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#E3E0ED">Analytics models</text>
-  <text x="515" y="303" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">DuckDB · dbt · tests</text>
-</g><path d="M688 277 H719" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round"/><path d="M712 270 L719 277 L712 284" fill="none" stroke="#82B5AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><g filter="url(#shadow)">
-  <rect x="726" y="205" width="190" height="142" rx="13" fill="#41414F" stroke="#E3E0ED" stroke-opacity="0.18"/>
-  <circle cx="751" cy="234" r="13" fill="#82B5AA" fill-opacity="0.18"/>
-  <text x="751" y="239" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="700" fill="#E3E0ED">4</text>
-  <text x="743" y="275" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#E3E0ED">Review outputs</text>
-  <text x="743" y="303" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">Docs · dashboard</text>
-</g>
-<text x="48" y="405" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">Source values retained</text>
-<circle cx="38" cy="401" r="3" fill="#82B5AA"/>
-<text x="335" y="405" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">Quality conflicts made visible</text>
-<circle cx="325" cy="401" r="3" fill="#82B5AA"/>
-<text x="695" y="405" font-family="Inter, Arial, sans-serif" font-size="12" fill="#E3E0ED" opacity="0.76">Observed history, not causal claims</text>
-<circle cx="685" cy="401" r="3" fill="#82B5AA"/>
+<rect width="1280" height="720" fill="url(#bg)"/>
+<path d="M0 610 C210 580 380 640 620 610 S1030 585 1280 620 L1280 720 L0 720 Z" fill="#5CE1E6" opacity="0.12"/>
+<rect x="42" y="42" width="6" height="64" rx="3" fill="#5CE1E6"/>
+<text x="68" y="58" font-family="Inter,Arial,sans-serif" font-size="14" letter-spacing="2.2" font-weight="700" fill="#E8EEF7">TORONTO HOUSING BOTTLENECK ANALYTICS</text>
+<text x="68" y="104" font-family="Inter,Arial,sans-serif" font-size="31" font-weight="700" letter-spacing="-0.7" fill="#E8EEF7">From source extracts to published analytics</text>
+<text x="68" y="137" font-family="Inter,Arial,sans-serif" font-size="15" fill="#ADBBCE">One resilient ingestion pipeline · two warehouse backends · one shared dbt project</text>
+<rect x="1003" y="48" width="232" height="31" rx="15.5" fill="#23344B" stroke="#33445A" stroke-opacity="0.18"/>
+<text x="1119" y="68" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" letter-spacing="1.3" font-weight="700" fill="#E8EEF7" opacity="0.85">ARCHITECTURE OVERVIEW</text>
+
+<!-- Stage 1 -->
+<g filter="url(#shadow)"><rect x="32" y="190" width="278" height="390" rx="15" fill="#192538" stroke="#33445A" stroke-opacity="0.18"/></g>
+<rect x="32" y="190" width="278" height="62" rx="15" fill="#5CE1E6" fill-opacity="0.19"/>
+<path d="M32 237 V252 H310 V237" fill="#5CE1E6" fill-opacity="0.19"/>
+<circle cx="61" cy="221" r="15" fill="#5CE1E6" fill-opacity="0.24"/><text x="61" y="226" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">1</text>
+<text x="86" y="228" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#E8EEF7">Source &amp; ingestion</text>
+<!-- source icon -->
+<path d="M125 292 h88 l-7 16 h-74 z M134 282 h70 v10 h-70 z M142 269 h54 v13 h-54 z" fill="none" stroke="#5CE1E6" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M154 269 v-11 h30 v11 M169 258 v-12" stroke="#5CE1E6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<text x="171" y="340" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#E8EEF7">Toronto Open Data</text>
+<text x="171" y="366" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" fill="#ADBBCE">Active + Cleared permits</text>
+<line x1="57" y1="389" x2="285" y2="389" stroke="#33445A" stroke-opacity="0.15"/>
+<circle cx="68" cy="423" r="5" fill="#5CE1E6"/><text x="84" y="428" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#E8EEF7">Python + dlt pipeline</text>
+<circle cx="68" cy="462" r="5" fill="#5CE1E6"/><text x="84" y="467" font-family="Inter,Arial,sans-serif" font-size="13" fill="#E8EEF7">CKAN extraction safeguards</text>
+<circle cx="68" cy="501" r="5" fill="#5CE1E6"/><text x="84" y="506" font-family="Inter,Arial,sans-serif" font-size="13" fill="#E8EEF7">Validated Parquet snapshots</text>
+<rect x="57" y="531" width="228" height="27" rx="7" fill="#23344B"/>
+<text x="171" y="549" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="600" fill="#ADBBCE">One reusable snapshot bundle</text>
+
+<!-- Arrow 1 -->
+<path d="M312 385 H334" stroke="#5CE1E6" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 2 -->
+<g filter="url(#shadow)"><rect x="346" y="190" width="278" height="390" rx="15" fill="#192538" stroke="#33445A" stroke-opacity="0.18"/></g>
+<rect x="346" y="190" width="278" height="62" rx="15" fill="#5CE1E6" fill-opacity="0.19"/>
+<path d="M346 237 V252 H624 V237" fill="#5CE1E6" fill-opacity="0.19"/>
+<circle cx="375" cy="221" r="15" fill="#5CE1E6" fill-opacity="0.24"/><text x="375" y="226" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">2</text>
+<text x="400" y="228" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#E8EEF7">Observed history</text>
+<rect x="373" y="277" width="224" height="52" rx="9" fill="#23344B" stroke="#5CE1E6" stroke-opacity="0.5"/>
+<text x="485" y="299" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="17" font-weight="700" fill="#E8EEF7">SCD Type 2</text>
+<text x="485" y="317" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">meaningful source changes</text>
+<!-- simple observed versions -->
+<rect x="382" y="354" width="55" height="37" rx="7" fill="#5CE1E6" fill-opacity="0.20" stroke="#5CE1E6" stroke-opacity="0.6"/>
+<rect x="458" y="354" width="55" height="37" rx="7" fill="#5CE1E6" fill-opacity="0.20" stroke="#5CE1E6" stroke-opacity="0.6"/>
+<rect x="534" y="354" width="55" height="37" rx="7" fill="#5CE1E6" fill-opacity="0.20" stroke="#5CE1E6" stroke-opacity="0.6"/>
+<text x="409" y="378" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">V1</text>
+<text x="485" y="378" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">V2</text>
+<text x="561" y="378" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">V3</text>
+<path d="M437 372 H454 M513 372 H530" stroke="#5CE1E6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<text x="485" y="424" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#E8EEF7">Built from successive extracts</text>
+<text x="485" y="450" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ADBBCE">History records when changes</text>
+<text x="485" y="468" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ADBBCE">were observed between snapshots</text>
+<rect x="371" y="499" width="228" height="59" rx="8" fill="#23344B"/>
+<text x="485" y="522" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#E8EEF7">Observation-bounded windows</text>
+<text x="485" y="540" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" fill="#ADBBCE">Not exact real-world transition times</text>
+
+<!-- Arrow 2 -->
+<path d="M626 385 H648" stroke="#5CE1E6" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 3 -->
+<g filter="url(#shadow)"><rect x="660" y="190" width="278" height="390" rx="15" fill="#192538" stroke="#33445A" stroke-opacity="0.18"/></g>
+<rect x="660" y="190" width="278" height="62" rx="15" fill="#5CE1E6" fill-opacity="0.19"/>
+<path d="M660 237 V252 H938 V237" fill="#5CE1E6" fill-opacity="0.19"/>
+<circle cx="689" cy="221" r="15" fill="#5CE1E6" fill-opacity="0.24"/><text x="689" y="226" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">3</text>
+<text x="714" y="228" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#E8EEF7">Warehouses + dbt</text>
+<!-- warehouse pills -->
+<rect x="683" y="278" width="108" height="46" rx="9" fill="#23344B" stroke="#33445A" stroke-opacity="0.14"/>
+<rect x="807" y="278" width="108" height="46" rx="9" fill="#23344B" stroke="#33445A" stroke-opacity="0.14"/>
+<text x="737" y="307" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" fill="#E8EEF7">DuckDB</text>
+<text x="861" y="307" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700" fill="#E8EEF7">Snowflake</text>
+<path d="M737 324 V345 H861 V324 M799 345 V363" stroke="#5CE1E6" stroke-width="2" fill="none" stroke-linecap="round"/>
+<rect x="684" y="363" width="230" height="48" rx="9" fill="#5CE1E6" fill-opacity="0.20" stroke="#5CE1E6" stroke-opacity="0.65"/>
+<text x="799" y="383" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#E8EEF7">One shared dbt project</text>
+<text x="799" y="400" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10" fill="#ADBBCE">warehouse-specific SQL isolated where needed</text>
+<text x="799" y="445" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="600" fill="#E8EEF7">Staging · facts · dimensions · marts</text>
+<line x1="685" y1="462" x2="913" y2="462" stroke="#33445A" stroke-opacity="0.15"/>
+<circle cx="698" cy="489" r="4" fill="#5CE1E6"/><text x="712" y="493" font-family="Inter,Arial,sans-serif" font-size="11" fill="#E8EEF7">Contracts + tests</text>
+<circle cx="698" cy="516" r="4" fill="#5CE1E6"/><text x="712" y="520" font-family="Inter,Arial,sans-serif" font-size="11" fill="#E8EEF7">Freshness + static analysis</text>
+<circle cx="698" cy="543" r="4" fill="#5CE1E6"/><text x="712" y="547" font-family="Inter,Arial,sans-serif" font-size="11" fill="#E8EEF7">Cross-warehouse parity checks</text>
+
+<!-- Arrow 3 -->
+<path d="M940 385 H962" stroke="#5CE1E6" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+
+<!-- Stage 4 -->
+<g filter="url(#shadow)"><rect x="974" y="190" width="274" height="390" rx="15" fill="#192538" stroke="#33445A" stroke-opacity="0.18"/></g>
+<rect x="974" y="190" width="274" height="62" rx="15" fill="#5CE1E6" fill-opacity="0.19"/>
+<path d="M974 237 V252 H1248 V237" fill="#5CE1E6" fill-opacity="0.19"/>
+<circle cx="1003" cy="221" r="15" fill="#5CE1E6" fill-opacity="0.24"/><text x="1003" y="226" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#E8EEF7">4</text>
+<text x="1028" y="228" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#E8EEF7">Published outputs</text>
+<!-- output tile 1 -->
+<rect x="1000" y="278" width="222" height="82" rx="10" fill="#23344B" stroke="#33445A" stroke-opacity="0.12"/>
+<path d="M1020 296 h22 v30 h-22 z M1026 303 h10 M1026 310 h10 M1026 317 h7" stroke="#5CE1E6" stroke-width="2" fill="none" stroke-linecap="round"/>
+<text x="1054" y="308" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#E8EEF7">dbt documentation</text>
+<text x="1054" y="330" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">Published with GitHub Pages</text>
+<!-- output tile 2 -->
+<rect x="1000" y="376" width="222" height="82" rx="10" fill="#23344B" stroke="#33445A" stroke-opacity="0.12"/>
+<rect x="1020" y="394" width="25" height="28" rx="3" stroke="#5CE1E6" stroke-width="2" fill="none"/><path d="M1025 414 v-7 M1032 414 v-12 M1039 414 v-17" stroke="#5CE1E6" stroke-width="3" stroke-linecap="round"/>
+<text x="1054" y="406" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#E8EEF7">Streamlit dashboard</text>
+<text x="1054" y="428" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">Deployed public interface</text>
+<text x="1111" y="489" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#E8EEF7">Backend configuration</text>
+<text x="1111" y="511" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">Public dashboard: DuckDB</text>
+<text x="1111" y="531" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">Optional read-only Snowflake</text>
+<text x="1111" y="551" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" fill="#ADBBCE">serving connection</text>
+
+<!-- Footer -->
+<line x1="42" y1="619" x2="1238" y2="619" stroke="#33445A" stroke-opacity="0.18"/>
+<circle cx="57" cy="654" r="4" fill="#5CE1E6"/>
+<text x="72" y="659" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ADBBCE">Validated snapshots are reused across backends</text>
+<circle cx="656" cy="654" r="4" fill="#5CE1E6"/>
+<text x="671" y="659" font-family="Inter,Arial,sans-serif" font-size="12" fill="#ADBBCE">Permit analysis is descriptive, not causal</text>
 </svg>
